@@ -1,32 +1,31 @@
 ---
-- hosts: all
-  become: true
-  gather_facts: False
-  tasks:
-  - name: install python 3
-    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+# - hosts: all
+  # become: true
+  # gather_facts: true
+  # tasks:
+  # - name: install python 3
+  #   raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
 
 - hosts: all
   become: true
   roles:
-  # - create-users
-  - configure-nodes
+  - a-update-os
+  - b-create-user
+  - c-install-tools
 
-- hosts: masters
+- hosts: master
   become: true
   roles:
-  # - configure-master
-  - create-k8s-master
-  - install-weave
+  - e-create-master
 
-- hosts: workers
-  become: true
-  roles:
-  - join-workers
+# - hosts: workers
+#   become: true
+#   roles:
+#   - join-workers
 
-- hosts: masters
-  become: true
-  roles:
-  - wrapup
+# - hosts: masters
+#   become: true
+#   roles:
+#   - wrapup
 
 ...
