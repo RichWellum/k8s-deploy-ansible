@@ -1,7 +1,13 @@
 ---
-- name: disable swap, if any
-  become: true
-  shell: swapoff -a
+- name: Disable SWAP since Kubernetes can't work with swap enabled (1/2)
+  shell: |
+    swapoff -a
+
+- name: Disable SWAP in fstab since Kubernetes can't work with swap enabled (2/2)
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'
 
 - name: install Docker
   apt:
