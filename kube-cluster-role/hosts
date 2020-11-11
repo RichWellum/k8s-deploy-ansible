@@ -1,0 +1,9 @@
+[masters]
+master ansible_host=40.114.113.26 ansible_user=riwell ansible_become_pass=riwell
+
+[workers]
+worker1 ansible_host=40.88.130.23 ansible_user=riwell ansible_become_pass=riwell
+worker2 ansible_host=40.88.130.249 ansible_user=riwell ansible_become_pass=riwell
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
