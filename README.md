@@ -59,10 +59,8 @@ master and two worker nodes, connected with Weave CNI.
 1. Let try running the playbook:
 
     ```bash
-    ansible-playbook site.yaml
+    ansible-playbook -i hosts site.yml --list-host
+
     ```
 
 ## TODO
-
-[] - Delete configure-master
-[] - Delete create-users if not needed for Ubuntu
