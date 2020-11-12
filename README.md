@@ -5,21 +5,12 @@ Simple Role Based playbook to create a minimal Kubernetes cluster.
 This is specific to Ubuntu VM's running in Azure.
 
 The assumption is that the Azure VM's have been created with the appropriate
-public_key file.
+public_key and username 'ubuntu'.
 
 ## Update user data
 
 1. Change ```hosts``` to reflect Azure architecture.
-2. Update ```ansible.cfg``` and change to reflect users details.:
-
-    ```bash
-    [defaults]
-    inventory      = hosts
-    remote_user = riwell
-    private_key_file = ~/.ssh/SASDeploy_key.pem
-    ```
-
-3. Run ansible ping to check connectivity:
+2. Run ansible ping to check connectivity:
 
     ```bash
     ansible all -m ping
@@ -41,7 +32,7 @@ public_key file.
     }
     ```
 
-4. Lets run a command for further validation:
+3. Lets run a command for further validation:
 
     ```bash
     ansible all -a "uname -a"

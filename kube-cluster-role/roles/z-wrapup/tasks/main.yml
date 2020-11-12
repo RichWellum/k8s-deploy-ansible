@@ -1,8 +1,19 @@
 ---
 - name: get nodes
-  shell: kubectl --kubeconfig=admin.conf get nodes
+  become: yes
+  become_user: ubuntu
+  shell: kubectl get nodes
   register: ps
 
 - name: output of get nodes
   debug: var=ps.stdout_lines
+
+- name: get pods
+  become: yes
+  become_user: ubuntu
+  shell: kubectl get pods --all-namespaces
+  register: ps2
+
+- name: output of get pods
+  debug: var=ps2.stdout_lines
 ...

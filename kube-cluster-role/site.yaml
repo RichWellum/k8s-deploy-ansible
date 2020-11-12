@@ -10,7 +10,7 @@
   become: true
   roles:
   - e-create-master
-  - f-install-weave
+  # - f-install-weave
 
 # Outside a role because I need to pass a variable from master to workers
 - hosts: master
