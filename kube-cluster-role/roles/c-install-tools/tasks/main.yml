@@ -1,31 +1,13 @@
 ---
-- name: Disable SWAP since Kubernetes can't work with swap enabled (1/2)
+- name: disable SWAP since Kubernetes can't work with swap enabled (1/2)
   shell: |
     swapoff -a
 
-- name: Disable SWAP in fstab since Kubernetes can't work with swap enabled (2/2)
+- name: disable SWAP in fstab since Kubernetes can't work with swap enabled (2/2)
   replace:
     path: /etc/fstab
     regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
     replace: '# \1'
-
-# - name: precondition 1 for weave network
-#   command: sysctl net.bridge.bridge-nf-call-iptables=1
-#   register: out
-
-# - debug: var=out.stdout_lines
-
-# - name: precondition 2 for weave network
-#   command: sysctl net.bridge.bridge-nf-call-ip6tables=1
-#   register: out
-
-# - debug: var=out.stdout_lines
-
-# - name: precondition 3 for weave network
-#   command: sysctl net.bridge.bridge-nf-call-arptables=1
-#   register: out
-
-# - debug: var=out.stdout_lines
 
 - name: install Docker
   apt:

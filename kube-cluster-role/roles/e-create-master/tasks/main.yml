@@ -23,12 +23,4 @@
     dest: /home/ubuntu/.kube/config
     remote_src: yes
     owner: ubuntu
-
-# - name: install Pod network
-#   become: yes
-#   become_user: ubuntu
-#   shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.txt
-#   args:
-#     chdir: $HOME
-#     creates: pod_network_setup.txt
 ...

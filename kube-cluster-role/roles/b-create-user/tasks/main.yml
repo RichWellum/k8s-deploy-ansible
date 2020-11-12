@@ -1,18 +1,4 @@
 ---
-# - name: create the 'ubuntu' user
-#   user: name=ubuntu append=yes state=present createhome=yes shell=/bin/bash
-
-# - name: allow passwordless sudo
-#   lineinfile:
-#     dest: /etc/sudoers
-#     line: '{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL'
-#     validate: 'visudo -cf %s'
-
-# - name: set up authorized keys for the user
-#   authorized_key: user={{ ansible_user }} key="{{item}}"
-#   with_file:
-#     - ~/.ssh/id_rsa.pub
-
 - name: create the 'ubuntu' user
   user: name=ubuntu append=yes state=present createhome=yes shell=/bin/bash
 
