@@ -1,0 +1,8 @@
+---
+- name: get nodes
+  shell: kubectl --kubeconfig=admin.conf get nodes
+  register: ps
+
+- name: output of get nodes
+  debug: var=ps.stdout_lines
+...

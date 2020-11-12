@@ -2,11 +2,12 @@
 ansible_user='riwell'
 ansible_become=yes
 ansible_become_method=sudo
+ansible_ssh_private_key_file=~/.ssh/SASDeploy_key.pem
 ansible_python_interpreter='/usr/bin/env python3'
 
 [master]
-master ansible_host=40.114.113.26
+master1 ansible_host=52.188.211.4
 
 [workers]
-worker1 ansible_host=40.88.130.23
-worker2 ansible_host=40.88.130.249
+worker1 ansible_host=52.186.140.228
+worker2 ansible_host=52.186.140.216

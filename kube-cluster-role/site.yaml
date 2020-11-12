@@ -1,22 +1,16 @@
 ---
-# - hosts: all
-  # become: true
-  # gather_facts: true
-  # tasks:
-  # - name: install python 3
-  #   raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-
 - hosts: all
   become: true
   roles:
   - a-update-os
-  # - b-create-user
+  - b-create-user
   - c-install-tools
 
 - hosts: master
   become: true
   roles:
   - e-create-master
+  - f-install-weave
 
 # Outside a role because I need to pass a variable from master to workers
 - hosts: master
@@ -40,14 +34,8 @@
         chdir: $HOME
         creates: node_joined.txt
 
-# - hosts: workers
-#   become: true
-#   roles:
-#   - f-join-workers
-
-# - hosts: masters
-#   become: true
-#   roles:
-#   - wrapup
-
+- hosts: master
+  become: true
+  roles:
+  - z-wrapup
 ...
