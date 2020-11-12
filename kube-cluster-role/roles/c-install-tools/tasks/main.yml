@@ -9,6 +9,24 @@
     regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
     replace: '# \1'
 
+# - name: precondition 1 for weave network
+#   command: sysctl net.bridge.bridge-nf-call-iptables=1
+#   register: out
+
+# - debug: var=out.stdout_lines
+
+# - name: precondition 2 for weave network
+#   command: sysctl net.bridge.bridge-nf-call-ip6tables=1
+#   register: out
+
+# - debug: var=out.stdout_lines
+
+# - name: precondition 3 for weave network
+#   command: sysctl net.bridge.bridge-nf-call-arptables=1
+#   register: out
+
+# - debug: var=out.stdout_lines
+
 - name: install Docker
   apt:
       name: docker.io

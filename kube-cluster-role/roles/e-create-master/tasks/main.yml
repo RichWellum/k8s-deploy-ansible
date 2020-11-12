@@ -1,21 +1,14 @@
 ---
+- name: get api address
+  shell: ifconfig eth0 | grep 'inet'| cut -d':' -f2 | awk '{print $2}'
+  register: ip_addr
+
+- debug: var=ip_addr.stdout_lines
+
 - name: Initialize the Kubernetes cluster using kubeadm
-  # command: kubeadm init --pod-network-cidr=10.244.0.0/16
-  shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
-  args:
-    chdir: $HOME
-    creates: cluster_initialized.txt
+  shell: kubeadm init --pod-network-cidr=10.4.0.0/16 --service-cidr=10.5.0.0/16 --service-dns-domain=k8s.local --apiserver-advertise-address={{ ip_addr.stdout }}
+  ignore_errors: True
 
-# - name: create .kube in root home
-#   file:
-#     path: /root/.kube
-#     state: directory
-
-# - name: copy kubernetes admin.conf to root home dir
-#   copy:
-#     src: /etc/kubernetes/admin.conf
-#     dest: /root/.kube/config
-#     remote_src: yes
 - name: create .kube directory
   become: yes
   become_user: ubuntu
@@ -31,11 +24,11 @@
     remote_src: yes
     owner: ubuntu
 
-- name: install Pod network
-  become: yes
-  become_user: ubuntu
-  shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.txt
-  args:
-    chdir: $HOME
-    creates: pod_network_setup.txt
+# - name: install Pod network
+#   become: yes
+#   become_user: ubuntu
+#   shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.txt
+#   args:
+#     chdir: $HOME
+#     creates: pod_network_setup.txt
 ...

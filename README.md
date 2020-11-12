@@ -1,15 +1,21 @@
 # k8s-deploy-ansible
 
-Simple Role Based playbook to create a minimal Kubernetes cluster.
+Simple Role Based playbook to create a minimal Kubernetes cluster, with one
+master and two worker nodes, connected with Weave CNI.
 
-This is specific to Ubuntu VM's running in Azure.
+## Prerequisites
 
-The assumption is that the Azure VM's have been created with the appropriate
-public_key and username 'ubuntu'.
+1. This is only tested on Ubuntu 18.04 VMs
+2. This is only tested and specific to Azure VM's.
+3. All three VM's are connected with the same vnet/subnet.
+4. All three VMs created with the user 'ubuntu'.
+5. Ansible installed on local machine.
+6. ssh access is anabled via networking for each VM and each VM is manually
+   accessed one time before running the playbook.
 
 ## Update user data
 
-1. Change ```hosts``` to reflect Azure architecture.
+1. Change `hosts` to reflect Azure architecture.
 2. Run ansible ping to check connectivity:
 
     ```bash
