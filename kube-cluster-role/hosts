@@ -2,12 +2,12 @@
 ansible_user=ubuntu
 ansible_become=yes
 ansible_become_method=sudo
-ansible_ssh_private_key_file=~/.ssh/ubuntu-key.pem
+ansible_ssh_private_key_file=~/.ssh/ubuntu.pem
 ansible_python_interpreter='/usr/bin/env python3'
 
 [masters]
-master ansible_host=40.121.148.181
+master ansible_host=riwell-k8s-master
 
 [workers]
-worker1 ansible_host=104.211.21.80
-worker2 ansible_host=13.90.245.212
+worker1 ansible_host=riwell-k8s-worker1
+worker2 ansible_host=riwell-k8s-worker2

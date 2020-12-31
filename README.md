@@ -56,11 +56,17 @@ master and two worker nodes, connected with Weave CNI.
 
 ## Running the Playbook
 
-1. Let try running the playbook:
+1. Check the hosts:
 
     ```bash
     ansible-playbook -i hosts site.yml --list-host
 
+    ```
+
+2. Run the playbook:
+
+    ```bash
+    ansible-playbook -i hosts site.yml
     ```
 
 ## TODO
