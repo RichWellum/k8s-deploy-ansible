@@ -15,6 +15,12 @@
       state: present
       update_cache: true
 
+- name: Ensure docker deamon is running
+  service:
+    name: docker
+    state: started
+  become: true
+
 - name: install APT Transport HTTPS
   apt:
       name: apt-transport-https

@@ -36,5 +36,6 @@
 - hosts: master
   become: true
   roles:
+  - g-add-metric-server
   - z-wrapup
 ...
