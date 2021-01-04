@@ -33,9 +33,13 @@
         chdir: $HOME
         creates: node_joined.txt
 
-- hosts: master
+- hosts: worker1
   become: true
   roles:
   - g-add-metric-server
+
+- hosts: master
+  become: true
+  roles:
   - z-wrapup
 ...
