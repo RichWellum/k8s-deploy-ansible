@@ -12,31 +12,36 @@
   - e-create-master
   - f-install-weave
 
-# Outside a role because I need to pass a variable from master to workers
-- hosts: master
-  become: yes
-  tasks:
-    - name: get join command
-      shell: kubeadm token create --print-join-command
-      register: join_command_raw
-
-    - name: set join command
-      set_fact:
-        join_command: "{{ join_command_raw.stdout_lines[0] }}"
-
 - hosts: workers
-  become: yes
-  tasks:
-    - name: join cluster
-      shell: "{{ hostvars['master'].join_command }} >> node_joined.txt"
-      args:
-        chdir: $HOME
-        creates: node_joined.txt
-
-- hosts: worker1
   become: true
   roles:
-  - g-add-metric-server
+  - g-join-workers
+
+# Outside a role because I need to pass a variable from master to workers
+# - hosts: master
+#   become: yes
+#   tasks:
+#     - name: get join command
+#       shell: kubeadm token create --print-join-command
+#       register: join_command_raw
+
+#     - name: set join command
+#       set_fact:
+#         join_command: "{{ join_command_raw.stdout_lines[0] }}"
+
+# - hosts: workers
+#   become: yes
+#   tasks:
+#     - name: join cluster
+#       shell: "{{ hostvars['master'].join_command }} >> node_joined.txt"
+#       args:
+#         chdir: $HOME
+#         creates: node_joined.txt
+
+# - hosts: worker1
+#   become: true
+#   roles:
+#   - g-add-metric-server
 
 - hosts: master
   become: true

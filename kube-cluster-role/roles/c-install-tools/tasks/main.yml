@@ -9,6 +9,9 @@
     regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
     replace: '# \1'
 
+- name: enable netfilter
+  command: modprobe br_netfilter
+
 - name: install Docker
   apt:
       name: docker.io
@@ -20,6 +23,14 @@
     name: docker
     state: started
   become: true
+
+- name: reload the daemon
+  command: systemctl daemon-reload
+
+- name: restart dockerd
+  service:
+    name: docker
+    state: restarted
 
 - name: install APT Transport HTTPS
   apt:
@@ -37,16 +48,34 @@
       state: present
       filename: "kubernetes"
 
-- name: install kubelet
+- name: install kubelet, kubeadm, and kubectl
   apt:
-      name: kubelet
-      state: present
-      update_cache: true
+    force_apt_get: yes
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+    update_cache: yes
 
-- name: install kubeadm
-  apt:
-      name: kubeadm
-      state: present
+- name: configure Kubernetes cgroup driver to match Dockers (cgroupfs)
+  lineinfile:
+    path: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+    insertbefore: '^ExecStart'
+    firstmatch: yes
+    line: 'Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=systemd"'
+    state: present
+
+- name: reload daemon
+  command: systemctl daemon-reload
+
+- name: restart kubelet
+  command: systemctl restart kubelet
+
+- name: restart dockerd
+  service:
+    name: docker
+    state: restarted
 
 - name: pull kube images
   become: true

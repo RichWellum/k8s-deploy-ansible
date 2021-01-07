@@ -1,4 +1,10 @@
 ---
+- name: precondition for weave network
+  command: sysctl net.bridge.bridge-nf-call-iptables=1
+  register: out
+
+- debug: var=out.stdout_lines
+
 - name: set up weave network
   become: yes
   become_user: ubuntu

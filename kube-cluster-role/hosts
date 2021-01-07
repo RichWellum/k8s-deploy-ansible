@@ -6,8 +6,8 @@ ansible_ssh_private_key_file=~/.ssh/ubuntu.pem
 ansible_python_interpreter='/usr/bin/env python3'
 
 [masters]
-master ansible_host=riwell-k8s-master
+master ansible_host=40.76.35.114
 
 [workers]
-worker1 ansible_host=riwell-k8s-worker1
-worker2 ansible_host=riwell-k8s-worker2
+worker1 ansible_host=52.255.173.199
+worker2 ansible_host=52.255.202.119
