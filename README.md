@@ -13,6 +13,10 @@ master and two worker nodes, connected with Weave CNI.
 6. ssh access is anabled via networking for each VM and each VM is manually
    accessed one time before running the playbook.
 
+## To create VM's, I recomend to follow the guide here"
+
+<https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli>
+
 ## Update user data
 
 1. Change `hosts` to reflect Azure architecture.
